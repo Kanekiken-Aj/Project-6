@@ -45,7 +45,7 @@ const CoinPriceTable: React.FC = () => {
             try {
                 const response = await fetcherWithKey(API_ENDPOINT, API_KEY);
                 setCount(prevCount => prevCount + 1);
-                // console.log(response)
+                console.log(response)
                 setPairsData(response);
             } catch (error: any) {
                 console.log(error)
@@ -60,7 +60,7 @@ const CoinPriceTable: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{height:'60vh', overflow:'auto'}}>
             <br />
             <h2 style={{fontWeight:'600'}}>Bitdelta Coin Price Table</h2>
             {/* <ul>
