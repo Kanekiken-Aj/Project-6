@@ -13,13 +13,13 @@ function App() {
   return (
 
     <ChakraProvider>
-      {/* <div style={{padding:'20px'}}>
+      <div style={{padding:'20px'}}>
       <h2>Testing</h2><br></br>
       <LanguageSelector />
       <BitdeltaCurrencySelector />
       <BitdeltaMarketPairs/>
       </div>
-      <CoinPriceTable /> */}
+      <CoinPriceTable />
       <BannerSelector/>
 
     </ChakraProvider>
