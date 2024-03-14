@@ -29,5 +29,21 @@ const fetcherWithKey = async (API_ENDPOINT: string, API_KEY: string) => {
     }
 };
 
+const ImagefetcherWithKey = async (API_ENDPOINT: string, API_KEY: string) => {
+    try {
+        const response = await fetch(API_ENDPOINT, {
+            headers: {
+                'X-Api-Key': API_KEY
+            }
+        });
+        // console.log(data);
+        return response;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
 
-export {fetcher,fetcherWithKey} 
+
+
+export {fetcher,fetcherWithKey,ImagefetcherWithKey} 

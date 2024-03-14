@@ -1,10 +1,12 @@
 // Create a Coin Price Table
 import React, { useState, useEffect } from 'react';
-import { fetcherWithKey } from "../api/apiClient";
+import { fetcherWithKey,ImagefetcherWithKey } from "../api/apiClient";
 // import { API_ENDPOINT } from "../api/endPoint";
 import convertToMillions from './Helper';
 import {
+    Box,
     Table,
+    Flex,
     Thead,
     Tbody,
     Tr,
@@ -26,7 +28,7 @@ interface Pair {
     volume: number;
     high: number;
     low: number;
-    display_name:string;
+    currency1:string;
 }
 
 interface PairsData {
@@ -36,10 +38,13 @@ interface PairsData {
 }
 
 const API_ENDPOINT = 'https://api.bitdelta.com/api/v1/market/pairs';
+// const imageApi = 'https://media.wazirx.com/media/btc/84.png'
 const API_KEY = 'BitdeltaExchange';
 
 const CoinPriceTable: React.FC = () => {
     const [pairsData, setPairsData] = useState<PairsData | null>(null);
+    // const [image, setImage] = useState<any>();
+
     const [count, setCount] = useState<number>(0);
     // const [isMobile] = useMediaQuery('(max-width: 600px)');
     // const [isTablet] = useMediaQuery('(max-width: 960px)');
@@ -72,6 +77,19 @@ const CoinPriceTable: React.FC = () => {
     //         return '100%';
     //     }
     // };
+    // const imagefetcher=()=>{
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await ImagefetcherWithKey(imageApi, API_KEY);
+    //             // setCount(prevCount => prevCount + 1);
+    //             // console.log(response)
+    //             setImage(response);
+    //         } catch (error: any) {
+    //             console.log(error)
+    //         }
+    //     };
+    //     fetchData();
+    // }
     return (
         <div style={{height:'300px', overflow:'auto'}}>
             <br />
@@ -92,6 +110,7 @@ const CoinPriceTable: React.FC = () => {
                     <TableCaption>Coin Price Table{count}</TableCaption>
                     <Thead >
                         <Tr>
+                            
                             <Th>Name</Th>
                             <Th>Last Price</Th>
                             <Th>24H High</Th>
@@ -105,14 +124,16 @@ const CoinPriceTable: React.FC = () => {
                     <Tbody >
                         {pairsData?.data.spot.map((pair: Pair, index:number) => (
                             <Tr key={pair.symbol}>
-                                <Td ><div>{pair.display_name}</div><div>{pair.keywords[0]}</div></Td>
+                                <Td >
+                                    {/* <Box backgroundImage={imagefetcher} height={'20px'}></Box> */}
+                                <Flex>{pair.keywords[0].split('')}{` ${pair.currency1}`}</Flex></Td>
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>${pair.pricing[0]}</Td>
                                 <Td>${pair.high.toFixed(2)}</Td>
                                 <Td>${pair.low.toFixed(2)}</Td>
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>{pair.change.toFixed(2)}%</Td>
                                 {/* <Td>{convertToMillions(pair.volume.toFixed(2))}</Td> */}
                                 <Td>{convertToMillions((pair.volume).toFixed(2))}</Td>
-                                {/* <Td maxH={'10px'}><SplineChart data={pair.pricing} index={`${pair.display_name}${index}`} change={pair.change} /></Td> */}
+                                {/* <Td maxH={'10px'}><SplineChart data={pair.pricing} index={`${pair.currency1}${index}`} change={pair.change} /></Td> */}
                             </Tr>
                         ))}
                     </Tbody>
@@ -123,3 +144,6 @@ const CoinPriceTable: React.FC = () => {
 };
 
 export default CoinPriceTable;
+
+
+// 

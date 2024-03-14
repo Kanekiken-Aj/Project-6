@@ -7,6 +7,7 @@ import LanguageSelector from './components/LanguageSelector'
 import CoinPriceTable from './components/CoinPriceTable'
 import { ChakraProvider } from '@chakra-ui/react'
 import BannerSelector from './components/Banner'
+import NewsSubscription from './components/NewsSubcription'
 // import SplineChart from './components/SplineChart'
 // import SplineChart from './components/chart'
 
@@ -29,7 +30,7 @@ function App() {
       <CoinPriceTable />
       <BannerSelector/>
       {/* <SplineChart  data={pricingData}/> */}
-
+    <NewsSubscription/>
     </ChakraProvider>
 
 
