@@ -21,3 +21,4 @@ export default function convertToMillions(number: number | string): string {
         return num.toString();
     }
 }
+

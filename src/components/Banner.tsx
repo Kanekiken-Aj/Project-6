@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { fetcher } from "../api/apiClient";
 import { API_ENDPOINT } from "../api/endPoint";
+import { Flex, useMediaQuery, Image, IconButton } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 
 interface Banner {
     id: number;
     url: string;
+    mobile_url: string;
+    tab_url: string;
+    color:string
 
 }
 
 const BannerSelector: React.FC = () => {
     const [banners, setBanners] = useState<Banner[]>([]);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [isMobile] = useMediaQuery('(max-width: 600px)');
+    const [isTablet] = useMediaQuery('(max-width: 960px)');
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetcher(API_ENDPOINT + `general`);
                 setBanners(response.data.banners);
-                // console.log(response.data.banners)
+                // console.log(response.data.banners[0].color)
+              
+                // console.log(banners)
             } catch (error: any) {
                 console.log(error)
             }
@@ -43,21 +53,46 @@ const BannerSelector: React.FC = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
     };
 
+    const getbanner = () => {
+        if (banners.length === 0) {
+            return ''
+        }
+        const banner = banners[currentIndex]
+    
+        // console.log('hell');
+        if (isMobile) {
+            return banner.mobile_url || banner.url;
+        } else if (isTablet) {
+            return banner.tab_url || banner.url;
+        } else {
+            return banner.url;
+        }
+
+    }
+
     return (
         // <div style={{ display: 'flex', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
         //     <button onClick={handlePrevClick} style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }}>Previous</button>
         //     <div key={banners[currentIndex]?.id} style={{ backgroundImage: `url("${banners[currentIndex]?.url}")`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '100%', height: '300px' }}></div>
         //     <button onClick={handleNextClick} style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}>Next</button>
         // </div>
-        <div style={{ position: 'relative', height: '60vh', backgroundColor: '#182D7C', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ position: 'relative', width: '80%', height: '80%' }}>
-                <button onClick={handlePrevClick} style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 1, color: 'white' }}>Previous</button>
-                <div key={banners[currentIndex]?.id} style={{ backgroundImage: `url("${banners[currentIndex]?.url}")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'contain', width: '100%', height: '100%' }}></div>
-                <button onClick={handleNextClick} style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 1, color: 'white' }}>Next</button>
-            </div>
-        </div>
-
+<>
+        
+        <Flex align="center"  bg='hsl(0, 0%, 90%)' justifyContent='center' backgroundColor='#182d7c'>
+            
+            <IconButton aria-label="Previous" size="sm" icon={<ChevronLeftIcon />} onClick={handlePrevClick} />
+            <Flex overflow="hidden" justifyContent='center 'width='100%' >
+              
+                <Image src={getbanner()}  maxWidth="90%" width="90%" alt={`Banner ${currentIndex} `} />
+            </Flex>
+            <IconButton aria-label="Next" size="sm" icon={<ChevronRightIcon />} onClick={handleNextClick} />
+        </Flex>
+        </>
     );
+
 };
 
+
+
+// ${banners[currentIndex]?.url}
 export default BannerSelector;

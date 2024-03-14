@@ -12,7 +12,9 @@ import {
     Td,
     TableCaption,
     TableContainer,
+    useMediaQuery
 } from '@chakra-ui/react'
+
 
 
 interface Pair {
@@ -38,6 +40,8 @@ const API_KEY = 'BitdeltaExchange';
 const CoinPriceTable: React.FC = () => {
     const [pairsData, setPairsData] = useState<PairsData | null>(null);
     const [count, setCount] = useState<number>(0);
+    const [isMobile] = useMediaQuery('(max-width: 600px)');
+    const [isTablet] = useMediaQuery('(max-width: 960px)');
     
 
     useEffect(() => {
@@ -45,7 +49,7 @@ const CoinPriceTable: React.FC = () => {
             try {
                 const response = await fetcherWithKey(API_ENDPOINT, API_KEY);
                 setCount(prevCount => prevCount + 1);
-                console.log(response)
+                // console.log(response)
                 setPairsData(response);
             } catch (error: any) {
                 console.log(error)
@@ -58,11 +62,19 @@ const CoinPriceTable: React.FC = () => {
 
         
     }, []);
-
+    const getWidth = () => {
+        if (isMobile) {
+            return '90%';
+        } else if (isTablet) {
+            return '80%';
+        } else {
+            return '100%';
+        }
+    };
     return (
-        <div style={{height:'60vh', overflow:'auto'}}>
+        <div style={{height:'30rem', overflow:'auto'}}>
             <br />
-            <h2 style={{fontWeight:'600'}}>Bitdelta Coin Price Table</h2>
+            {/* <h2 style={{fontWeight:'600'}}>Bitdelta Coin Price Table</h2> */}
             {/* <ul>
                 {pairsData?.data.spot.map((pair: Pair) => (
                     <li key={pair.symbol}> {`Name: ${pair.coin_slug}`} <br></br>{`Price: $${pair.pricing[0]}`}
@@ -77,7 +89,7 @@ const CoinPriceTable: React.FC = () => {
             <TableContainer>
                 <Table variant='simple'>
                     <TableCaption>Coin Price Table{count}</TableCaption>
-                    <Thead>
+                    <Thead >
                         <Tr>
                             <Th>Name</Th>
                             <Th>Last Price</Th>
@@ -88,7 +100,7 @@ const CoinPriceTable: React.FC = () => {
 
                         </Tr>
                     </Thead>
-                    <Tbody>
+                    <Tbody >
                         {pairsData?.data.spot.map((pair: Pair) => (
                             <Tr key={pair.symbol}>
                                 <Td ><div>{pair.display_name}</div><div>{pair.keywords[0]}</div></Td>
