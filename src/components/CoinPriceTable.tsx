@@ -133,7 +133,7 @@ const CoinPriceTable: React.FC = () => {
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>{pair.change.toFixed(2)}%</Td>
                                 {/* <Td>{convertToMillions(pair.volume.toFixed(2))}</Td> */}
                                 <Td>{convertToMillions((pair.volume).toFixed(2))}</Td>
-                                {/* <Td maxH={'10px'}><SplineChart data={pair.pricing} index={`${pair.currency1}${index}`} change={pair.change} /></Td> */}
+                                <Td maxH={'10px'}><SplineChart data={pair.pricing} index={`${pair.currency1}${index}`} change={pair.change} /></Td>
                             </Tr>
                         ))}
                     </Tbody>
