@@ -3,14 +3,16 @@ import Chart from 'chart.js/auto';
 
 interface SplineChartProps {
     data: number[];
-    index: number; // Add index prop
+    index: string; // Add index prop
+    // color:string;
+    change:number;
 }
 
-const SplineChart: React.FC<SplineChartProps> = ({ data, index }) => {
+const SplineChart: React.FC<SplineChartProps> = ({ data, index, change }) => {
     // Ensure data is not empty
     if (!data  || data.length === 0) return null;
     
-
+    // console.log(color)
     // Prepare labels for x-axis (assuming data is equally spaced)
     const labels = Array.from({ length: data.length }, (_, i) => i + 1);
 
@@ -20,8 +22,9 @@ const SplineChart: React.FC<SplineChartProps> = ({ data, index }) => {
         datasets: [{
             // label: 'Pricing',
             data: data,
-            borderColor: 'blue',
-            backgroundColor: 'rgba(0, 0, 255, 0.1)',
+            // borderColor: 'blue',
+            borderColor: (change>=0? 'green':'red'),
+            // backgroundColor: 'rgba(0, 0, 255, 0.1)',
             tension: 0.5, 
             pointRadius: 0, 
             pointHoverRadius: 0,
@@ -55,7 +58,7 @@ const SplineChart: React.FC<SplineChartProps> = ({ data, index }) => {
         // Cleanup function to destroy the chart when component unmounts
         return () => chart.destroy();
     }, [data, index]); // Update the chart when data or index changes
-    console.log(index);
+    // console.log(index);
     return <canvas id={`spline-chart-${index}`} />;
     
 };

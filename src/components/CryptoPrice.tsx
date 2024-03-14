@@ -43,7 +43,7 @@ const BitdeltaMarketPairs: React.FC = () => {
     }, []);
 
     return (
-        <Flex justifyContent="space-around" paddingTop="20px">
+        <Flex justifyContent="space-around" paddingTop="20px" height={"100%"} overflow={'auto'}>
             {pairsData?.data.spot.slice(0, 4).map((pair: Pair, index: number) => (
                 <Box
                     key={pair.symbol}
@@ -62,7 +62,7 @@ const BitdeltaMarketPairs: React.FC = () => {
                     <Box display={'flex'} justifyContent={'space-between'} >
                         <Box> <Text fontSize='1rem'>{`$${convertToMillions(pair.pricing[0])}`}</Text>
                         <Text fontSize='.8rem' color={pair.change > 0 ? 'green' : 'red'}>{`${pair.change.toFixed(2)}`}</Text></Box>
-                        {/* <Box m={'12px'} h={'60%'} ><SplineChart data={pair.pricing} index={index} /></Box> */}
+                        <Box m={'12px'} h={'60%'} ><SplineChart data={pair.pricing} index={`${pair.currency1}${index}`} change={pair.change}/></Box>
 
                     </Box>
                    

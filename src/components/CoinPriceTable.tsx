@@ -12,7 +12,7 @@ import {
     Td,
     TableCaption,
     TableContainer,
-    useMediaQuery
+    // useMediaQuery
 } from '@chakra-ui/react'
 import SplineChart from './SplineChart';
 
@@ -41,8 +41,8 @@ const API_KEY = 'BitdeltaExchange';
 const CoinPriceTable: React.FC = () => {
     const [pairsData, setPairsData] = useState<PairsData | null>(null);
     const [count, setCount] = useState<number>(0);
-    const [isMobile] = useMediaQuery('(max-width: 600px)');
-    const [isTablet] = useMediaQuery('(max-width: 960px)');
+    // const [isMobile] = useMediaQuery('(max-width: 600px)');
+    // const [isTablet] = useMediaQuery('(max-width: 960px)');
     
 
     useEffect(() => {
@@ -63,17 +63,17 @@ const CoinPriceTable: React.FC = () => {
 
         
     }, []);
-    const getWidth = () => {
-        if (isMobile) {
-            return '90%';
-        } else if (isTablet) {
-            return '80%';
-        } else {
-            return '100%';
-        }
-    };
+    // const getWidth = () => {
+    //     if (isMobile) {
+    //         return '90%';
+    //     } else if (isTablet) {
+    //         return '80%';
+    //     } else {
+    //         return '100%';
+    //     }
+    // };
     return (
-        <div style={{height:'30rem', overflow:'auto'}}>
+        <div style={{height:'300px', overflow:'auto'}}>
             <br />
             {/* <h2 style={{fontWeight:'600'}}>Bitdelta Coin Price Table</h2> */}
             {/* <ul>
@@ -97,8 +97,8 @@ const CoinPriceTable: React.FC = () => {
                             <Th>24H High</Th>
                             <Th>24H Low</Th>
                             <Th>24H Change</Th>
-                            <Th>24H Volume</Th>
-                            <Th>24H Chart</Th>
+                            <Th>24H Supply</Th>
+                            <Th>Last 24H Chart</Th>
 
                         </Tr>
                     </Thead>
@@ -112,7 +112,7 @@ const CoinPriceTable: React.FC = () => {
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>{pair.change.toFixed(2)}%</Td>
                                 {/* <Td>{convertToMillions(pair.volume.toFixed(2))}</Td> */}
                                 <Td>{convertToMillions((pair.volume).toFixed(2))}</Td>
-                                <Td maxH={'10px'}><SplineChart data={pair.pricing} index={index} /></Td>
+                                <Td maxH={'10px'}><SplineChart data={pair.pricing} index={`${pair.display_name}${index}`} change={pair.change} /></Td>
                             </Tr>
                         ))}
                     </Tbody>
