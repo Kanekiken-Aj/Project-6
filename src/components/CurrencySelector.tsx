@@ -3,6 +3,8 @@ import { fetcher } from "../api/apiClient";
 import { API_ENDPOINT } from "../api/endPoint";
 import { HiOutlineGlobeAlt, } from "react-icons/hi2";
 import {BsChevronUp,BsChevronDown} from "react-icons/bs"
+import { RiCheckboxCircleFill} from "react-icons/ri";
+
 
 interface Currency {
   id: string;
@@ -33,6 +35,13 @@ const BitdeltaCurrencySelect: React.FC = () => {
   const toggleShowPairs = () => {
     setShowPairs(!showPairs);
   };
+
+  const onHover = (currency: string) => {
+    return (
+      selectedCurrency === currency ? <RiCheckboxCircleFill /> :''
+    );
+  };
+
   return (
     <div className="parent" style={{backgroundColor:'#ADD8E6',padding:'.7rem', width:'14rem'}}>
     <div style={{ width:'12rem', display: 'flex', flexDirection: 'column'}}>
@@ -57,9 +66,12 @@ const BitdeltaCurrencySelect: React.FC = () => {
               setSelectedCurrency(currency.name)
               setShowPairs(!showPairs)
             }}
-            style={{ display: 'flex', cursor: 'pointer' ,borderBottom:'0.4px solid black',justifyContent:'center'}}
+            onMouseEnter={() => setSelectedCurrency(currency.name)}
+            onMouseLeave={() => setSelectedCurrency('Select Currency')}
+            style={{ display: 'flex', cursor: 'pointer' ,justifyContent:'space-around'}}
           >
             {currency.name+` `} {currency.symbol}
+            <div style={{ marginLeft: '0.5rem' }}>{onHover(currency.name)}</div>
           </span>
         ))}
       </div>
