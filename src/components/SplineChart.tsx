@@ -22,8 +22,8 @@ const SplineChart: React.FC<SplineChartProps> = ({ data, index }) => {
             data: data,
             borderColor: 'blue',
             backgroundColor: 'rgba(0, 0, 255, 0.1)',
-            tension: 0.5, // Adjust the tension to make the spline smoother or sharper
-            pointRadius: 0, // Remove the points
+            tension: 0.5, 
+            pointRadius: 0, 
             pointHoverRadius: 0,
         }]
     };
@@ -58,7 +58,6 @@ const SplineChart: React.FC<SplineChartProps> = ({ data, index }) => {
     console.log(index);
     return <canvas id={`spline-chart-${index}`} />;
     
-     // Concatenate index to canvas ID
 };
 
 export default SplineChart;

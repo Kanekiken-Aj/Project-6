@@ -14,6 +14,7 @@ import {
     TableContainer,
     useMediaQuery
 } from '@chakra-ui/react'
+import SplineChart from './SplineChart';
 
 
 
@@ -56,9 +57,9 @@ const CoinPriceTable: React.FC = () => {
             }
         };
         fetchData();
-        const intervalId = setInterval(fetchData, 3000); 
+    //     const intervalId = setInterval(fetchData, 3000); 
 
-    return () => clearInterval(intervalId);
+    // return () => clearInterval(intervalId);
 
         
     }, []);
@@ -97,11 +98,12 @@ const CoinPriceTable: React.FC = () => {
                             <Th>24H Low</Th>
                             <Th>24H Change</Th>
                             <Th>24H Volume</Th>
+                            <Th>24H Chart</Th>
 
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {pairsData?.data.spot.map((pair: Pair) => (
+                        {pairsData?.data.spot.map((pair: Pair, index:number) => (
                             <Tr key={pair.symbol}>
                                 <Td ><div>{pair.display_name}</div><div>{pair.keywords[0]}</div></Td>
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>${pair.pricing[0]}</Td>
@@ -110,6 +112,7 @@ const CoinPriceTable: React.FC = () => {
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>{pair.change.toFixed(2)}%</Td>
                                 {/* <Td>{convertToMillions(pair.volume.toFixed(2))}</Td> */}
                                 <Td>{convertToMillions((pair.volume).toFixed(2))}</Td>
+                                <Td maxH={'10px'}><SplineChart data={pair.pricing} index={index} /></Td>
                             </Tr>
                         ))}
                     </Tbody>

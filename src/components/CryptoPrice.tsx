@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import convertToMillions from './Helper';
 import SplineChart from './SplineChart';
-import { Flex,Box,Text } from '@chakra-ui/react';
+import { Flex, Box, Text } from '@chakra-ui/react';
 
 const API_ENDPOINT = 'https://api.bitdelta.com/api/v1/market/pairs';
 const API_KEY = 'BitdeltaExchange';
@@ -57,16 +57,20 @@ const BitdeltaMarketPairs: React.FC = () => {
                     flexDirection='column'
                     padding='.7rem'
                 >
-                    <Text fontWeight='2rem'>{pair.keywords[0] + ` `}{pair.currency1}</Text>
-                    <Text fontSize='1rem'>{`$${convertToMillions(pair.pricing[0])}`}</Text>
-                    <Text fontSize='.8rem' color={pair.change > 0 ? 'green' : 'red'}>{`${pair.change.toFixed(2)}`}</Text>
-                    <Box>
-                        {/* <SplineChart data={pair.pricing} index={index} /> */}
+                    <Box><Text fontWeight='2rem'>{pair.keywords[0] + ` `}{pair.currency1}</Text></Box>
+                    
+                    <Box display={'flex'} justifyContent={'space-between'} >
+                        <Box> <Text fontSize='1rem'>{`$${convertToMillions(pair.pricing[0])}`}</Text>
+                        <Text fontSize='.8rem' color={pair.change > 0 ? 'green' : 'red'}>{`${pair.change.toFixed(2)}`}</Text></Box>
+                        {/* <Box m={'12px'} h={'60%'} ><SplineChart data={pair.pricing} index={index} /></Box> */}
+
                     </Box>
+                   
+
                 </Box>
             ))}
         </Flex>
-    
+
     );
 };
 
