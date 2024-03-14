@@ -1,6 +1,6 @@
 // Create a Coin Price Table
 import React, { useState, useEffect } from 'react';
-import { fetcherWithKey,ImagefetcherWithKey } from "../api/apiClient";
+import { fetcherWithKey} from "../api/apiClient";
 // import { API_ENDPOINT } from "../api/endPoint";
 import convertToMillions from './Helper';
 import {
