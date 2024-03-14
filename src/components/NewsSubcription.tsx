@@ -48,7 +48,7 @@ const NewsSubscription: React.FC<any> = () => {
                     Sign Up For Email
                 </Heading>
                 <Text pb='10'>
-                    Sign up to receive NAMI emails and get first dibs on new arrival, sales, exclusive content, events and more!
+                    Sign up to receive NAMI emails and get first news on new arrival, sales, exclusive content, events and more!
                 </Text>
                 <Input
                     type="email"
