@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import convertToMillions from './Helper';
 import SplineChart from './SplineChart';
-import { Flex, Box, Text } from '@chakra-ui/react';
+import { Flex, Box, Text,Spacer } from '@chakra-ui/react';
 
 const API_ENDPOINT = 'https://api.bitdelta.com/api/v1/market/pairs';
 const API_KEY = 'BitdeltaExchange';
@@ -43,11 +43,10 @@ const BitdeltaMarketPairs: React.FC = () => {
     }, []);
 
     return (
-        <Flex justifyContent="space-around" paddingTop="20px" height={"100%"} overflow={'auto'}>
-            {pairsData?.data.spot.slice(0, 4).map((pair: Pair, index: number) => (
+        <Flex justifyContent="space-between" paddingTop="20px" height={"100%"} overflow={'auto'}>
+            {pairsData?.data.spot.slice(0, 25).map((pair: Pair, index: number) => (
                 <Box
                     key={pair.symbol}
-                    className='card'
                     borderRadius='10px'
                     boxShadow='0 0 5px rgba(0, 0, 0, 0.1)'
                     height='120px'
@@ -57,10 +56,10 @@ const BitdeltaMarketPairs: React.FC = () => {
                     flexDirection='column'
                     padding='.7rem'
                 >
-                    <Box><Text fontWeight='2rem'>{pair.keywords[0] + ` `}{pair.currency1}</Text></Box>
+                    <Box display={'flex'} ><Text fontWeight='2rem'>{pair.keywords[0].split(' ')[0] + ` `}</Text><Text ml={'.2rem'}color={'grey'}>{`${pair.currency1}`}</Text></Box>
                     
                     <Box display={'flex'} justifyContent={'space-between'} >
-                        <Box> <Text fontSize='1rem'>{`$${convertToMillions(pair.pricing[0])}`}</Text>
+                        <Box> <Text fontSize='1rem' >{`$${convertToMillions(pair.pricing[0])}`}</Text>
                         <Text fontSize='.8rem' color={pair.change > 0 ? 'green' : 'red'}>{`${pair.change.toFixed(2)}`}</Text></Box>
                         <Box m={'12px'} h={'60%'} ><SplineChart data={pair.pricing} index={`${pair.currency1}-${index}`} change={pair.change}/></Box>
                     </Box>

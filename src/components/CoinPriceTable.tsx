@@ -91,7 +91,7 @@ const CoinPriceTable: React.FC = () => {
     //     fetchData();
     // }
     return (
-        <div style={{height:'300px', overflow:'auto'}}>
+        <div style={{height:'450px', overflow:'auto'}}>
             <br />
             {/* <h2 style={{fontWeight:'600'}}>Bitdelta Coin Price Table</h2> */}
             {/* <ul>
@@ -126,7 +126,7 @@ const CoinPriceTable: React.FC = () => {
                             <Tr key={pair.symbol}>
                                 <Td >
                                     {/* <Box backgroundImage={imagefetcher} height={'20px'}></Box> */}
-                                <Flex>{pair.keywords[0].split('')}{` ${pair.currency1}`}</Flex></Td>
+                                <Flex>{pair.keywords[0].split(' ')[0]}{` ${pair.currency1}`}</Flex></Td>
                                 <Td style={{color: pair.change > 0 ? 'green' : 'red'}}>${pair.pricing[0]}</Td>
                                 <Td>${pair.high.toFixed(2)}</Td>
                                 <Td>${pair.low.toFixed(2)}</Td>
